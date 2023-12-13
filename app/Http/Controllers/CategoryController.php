@@ -13,7 +13,7 @@ class CategoryController extends Controller
     public function index()
     {
         //
-        $categories = Category::all();  
+        $categories = Category::orderBy('updated_at', 'desc')->get();  
         return view('backend.category.index', compact('categories'));
     }
     // , compact('categories')
@@ -37,12 +37,12 @@ class CategoryController extends Controller
             'category_name' => 'required|min:2'
         ]);
         if($validate->fails()){
-            return back()->withError($validate);
+            return back()->withErrors($validate);
         }
         $category = new Category();
         $category->name = $request->category_name;
         if($category->save()){
-            return redirect('backend/category')->with('success', 'Success!');
+            return redirect('backend/category')->with('success', 'Created Success!');
         }else{
             return view('errors.500Page');
         }
@@ -54,6 +54,7 @@ class CategoryController extends Controller
     public function show(string $id)
     {
         //
+        
     }
 
     /**
@@ -62,6 +63,8 @@ class CategoryController extends Controller
     public function edit(string $id)
     {
         //
+        $category = Category::find($id);
+        return view('backend.category.edit', compact('category'));
     }
 
     /**
@@ -70,6 +73,20 @@ class CategoryController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $validate = validator($request->all(),[
+            'category_name' => 'required|min:2'
+        ]);
+        if($validate->fails()){
+            return back()->withErrors($validate);
+        }
+
+        $category = Category::where('id', $id)->first();
+        if(isset($category)){
+            $category->update(['name' => $request->category_name]);
+            return redirect('backend/category/')->with('success', 'Updated Success!');
+        }else{
+            return view('errors.500Page');
+        }
     }
 
     /**
@@ -78,5 +95,10 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         //
+        $category = Category::find($id);
+        if(isset($category)){
+            $category->delete();
+            return redirect('/backend/category/')->with('success', "Deleted Successfully");
+        }
     }
 }

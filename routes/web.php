@@ -9,6 +9,8 @@ use App\Http\Controllers\CategoryController;
 Route::get('/post/list', [PostController::class, 'index'])->name('post#list');
 Route::resource('backend/category', CategoryController::class);
 
+// post group
+Route::get('/posts/list', [PostController::class, 'index'])->name('PostList');
 
 // home group
 Route::get('/', [HomeController::class, 'home'])->name('HomePage');

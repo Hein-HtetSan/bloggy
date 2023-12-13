@@ -22,4 +22,4 @@ Route::get('/info', function(){
 });
 
 Route::get('/post/list', [PostController::class, 'index'])->name('post#list');
-Route::resource('categories', CategoryController::class);
+Route::resource('backend/category', CategoryController::class);

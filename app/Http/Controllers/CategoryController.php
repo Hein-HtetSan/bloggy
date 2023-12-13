@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -12,7 +13,10 @@ class CategoryController extends Controller
     public function index()
     {
         //
+        $categories = Category::all();  
+        return view('backend.category.index', compact('categories'));
     }
+    // , compact('categories')
 
     /**
      * Show the form for creating a new resource.
@@ -20,6 +24,7 @@ class CategoryController extends Controller
     public function create()
     {
         //
+        return view('backend.category.create');
     }
 
     /**
@@ -28,6 +33,19 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
+        $validate = validator($request->all(), [
+            'category_name' => 'required|min:2'
+        ]);
+        if($validate->fails()){
+            return back()->withError($validate);
+        }
+        $category = new Category();
+        $category->name = $request->category_name;
+        if($category->save()){
+            return redirect('backend/category')->with('success', 'Success!');
+        }else{
+            return view('errors.500Page');
+        }
     }
 
     /**

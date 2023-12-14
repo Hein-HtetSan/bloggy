@@ -43,7 +43,7 @@
                             <td>{{ $row->Category->name }}</td>
                             <td>{{ date('d/m/Y', strtotime($row->created_at)) }}</td>
                             <td class="d-flex align-items-center justify-content-center">
-                                <a href="{{ route('category.edit', $row->id) }}" class="btn btn-primary btn-sm btn-icon-split">
+                                <a href="{{ route('PostDetail', $row->id) }}" class="btn btn-primary btn-sm btn-icon-split">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-edit"></i>
                                     </span>

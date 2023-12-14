@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -35,7 +38,7 @@ class UserController extends Controller
                 'email' => $request->email,
                 'password' => $new_password,
             ]);
-            return redirect('posts/list')->with('Success', "Successfully updated Profile");
+            return redirect('posts/list')->with('success', "Successfully updated password");
         }else{
             return view('errors.404Page');
         }

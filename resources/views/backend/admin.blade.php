@@ -22,7 +22,6 @@
             <div class="card-body">
                 <form action="{{ route('updateAdminProfile') }}" method="POST">
                     @csrf
-                    @method('PUT')
                     <div class="mb-3">
                         <label for="name" class=" form-label">Name</label>
                         <input type="text" name="name" id="name" value="{{ Auth::user()->name }}" class="form-control w-50" readonly>

@@ -15,9 +15,9 @@
             </div>
             @endif
 
-            <h3 class="fs-3">Category</h3>  
+            <h3 class="fs-3">Post</h3>  
 
-            <a href="{{ route('category.create') }}" class="btn btn-primary btn-sm btn-icon-split my-3">
+            <a href="{{ route('PostCreate') }}" class="btn btn-primary btn-sm btn-icon-split my-3">
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>
@@ -40,8 +40,8 @@
                         <tr class="text-center">
                             <td>{{ $i++ }}</td>
                             <td>{{ $row->title }}</td>
-                            <td>{{ $row->category_id }}</td>
-                            <td>{{ $row->created_at }}</td>
+                            <td>{{ $row->Category->name }}</td>
+                            <td>{{ date('d/m/Y', strtotime($row->created_at)) }}</td>
                             <td class="d-flex align-items-center justify-content-center">
                                 <a href="{{ route('category.edit', $row->id) }}" class="btn btn-primary btn-sm btn-icon-split">
                                     <span class="icon text-white-50">

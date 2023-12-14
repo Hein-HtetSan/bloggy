@@ -6,7 +6,7 @@
 
     <div class="row">
 
-        <div class="col px-5">
+        <div class="col px-2 px-md-3">
 
             @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -43,7 +43,7 @@
                                     <span class="icon text-white-50">
                                         <i class="fas fa-edit"></i>
                                     </span>
-                                    <span class="text">Edit</span>
+                                    <span class="text d-none d-md-inline">Edit</span>
                                 </a>
                                 <div class="mx-2"></div>
                                 <form action="{{ route('category.destroy', $row->id) }}" method="POST">
@@ -53,7 +53,7 @@
                                         <span class="icon text-white-50">
                                             <i class="fas fa-trash"></i>
                                         </span>
-                                        <span class="text">Delete</span>
+                                        <span class="text d-none d-md-inline">Delete</span>
                                     </button>
                                 </form>
                             </td>

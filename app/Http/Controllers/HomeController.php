@@ -22,4 +22,8 @@ class HomeController extends Controller
         $latest_posts = Post::latest('created_at')->take(7)->get();
         return view('frontend.detail', compact('post', 'latest_posts'));
     }
+
+    public function index(){
+        return view('auth.login');
+    }
 }

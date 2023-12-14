@@ -20,3 +20,6 @@ Route::post('posts/delete/{id}', [PostController::class, 'destory'])->name('Post
 // home group
 Route::get('/', [HomeController::class, 'home'])->name('HomePage');
 Route::get('/detail/{id}', [HomeController::class, 'detail'])->name('DetailPage');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

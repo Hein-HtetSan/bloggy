@@ -50,9 +50,9 @@
                                     <span class="text">Edit</span>
                                 </a>
                                 <div class="mx-2"></div>
-                                <form action="{{ route('category.destroy', $row->id) }}" method="POST">
-                                    @method('DELETE')
+                                <form action="{{ route('PostDelete', $row->id) }}" style="display:inline;" method="POST">
                                     @csrf
+                                    @method('DELETE')
                                     <button class="btn btn-danger btn-sm btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-trash"></i>

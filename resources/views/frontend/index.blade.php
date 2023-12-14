@@ -19,46 +19,46 @@
         <div class="col-lg-8">
             {{-- Featured blog post  --}}
             <div class="card mb-4">
+                
                 <a href="">
-                    <img src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="" class="card-img-top">
+                    @if ( Str::contains($feature_post->cover, '.mp4') )
+                    <video src="{{ 'storage/'.$feature_post->cover }}" class="" width="100%" height="350px" controls></video>
+                    @else
+                    <img src="{{ 'storage/'.$feature_post->cover }}" alt="" class="card-img-top">
+                    @endif
                 </a>
                 <div class="card-body">
-                    <div class="small text-muted">Jaunary 1, 2023</div>
-                    <h2 class="card-title">Featured Post Title</h2>
+                    <div class="small text-muted">{{ $feature_post->created_at->diffForHumans() }}</div>
+                    <h2 class="card-title">{{ $feature_post->title }}</h2>
                     <p class="card-text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos odio, distinctio voluptates eaque autem voluptatibus magni nesciunt magnam accusamus sint.
+                        <?= Str::words($feature_post->description, 20, '...') ?>
                     </p>
-                    <a href="" class="btn btn-primary">Read more ></a>
+                    <a href="" class="btn btn-primary">Read more</a>
                 </div>
             </div>
             {{-- Nested row for non-featured blog posts --}}
             <div class="row">
+                @foreach ($posts as $post)
                 <div class="col-lg-6">
                     {{-- Blog post  --}}
                     <div class="card mb-4">
                         <a href="">
-                            <img src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="" class="card-img-top">
+                            @if ( Str::contains($post->cover, '.mp4') )
+                            <video src="{{ 'storage/'.$post->cover }}" class="" width="100%" height="200px" controls></video>
+                            @else
+                            <img src="{{ 'storage/'.$post->cover }}" alt="" class="card-img-top">
+                            @endif
                         </a>
                         <div class="card-body">
-                            <div class="small text-muted">Jaunary 1, 2023</div>
-                            <h2 class="card-title h4">Post Title</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, tenetur.</p>
+                            <div class="small text-muted">{{ $post->created_at->diffForHumans() }}</div>
+                            <h2 class="card-title h4">{{ $post->title }}</h2>
+                            <p class="card-text"><?= Str::words($post->description, 20, '....') ?></p>
                             <a href="" class="btn btn-primary">Read more ></a>
                         </div>
                     </div>
-                    {{-- Blog post  --}}
-                    <div class="card mb-4">
-                        <a href="">
-                            <img src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="" class="card-img-top">
-                        </a>
-                        <div class="card-body">
-                            <div class="small text-muted">Jaunary 1, 2023</div>
-                            <h2 class="card-title h4">Post Title</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, tenetur.</p>
-                            <a href="" class="btn btn-primary">Read more ></a>
-                        </div>
-                    </div>
+                    {{-- End of Blog  --}}
                 </div>
+                @endforeach
                 
                 <div class="col-lg-6">
                     {{-- Blog post  --}}
@@ -124,7 +124,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <ul class="list-unstyled mb-0">
-                                @foreach ($category as $item)
+                                @foreach ($categories as $item)
                                     <li><a href="">{{ $item->name }}</a></li>
                                 @endforeach
                             </ul>
@@ -134,10 +134,13 @@
             </div>
             {{-- Side Widget  --}}
             <div class="card mb-4">
-                <div class="card-header">Side Widget</div>
+                <div class="card-header">Latest Post</div>
+                @foreach ($latest_posts as $latest_post)
                 <div class="card-body">
-                    You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!
+                    <a href="" class="text-primary text-bold text-decoration-none">{{ $latest_post->title }}</a>
+                    <p><?= Str::words($latest_post->description, 20, '...') ?></p>
                 </div>
+                @endforeach
             </div>
         </div>
 

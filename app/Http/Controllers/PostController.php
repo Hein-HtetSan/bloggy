@@ -33,31 +33,27 @@ class PostController extends Controller
             'title' => 'required|min:3',
             'category' => 'required',
             'description' => 'required|min:3',
-            'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,mp4,mov,ogg|max:1024'
+            'cover' => 'required|mimes:jpeg,png,jpg,gif,svg,webp,mp4,mov,ogg'
         ]);
         if($validate->fails()){
             return back()->withErrors($validate);
         }
 
         // image upload 
-        if(file_exists($request->cover)){
-            $cover_name = 'cover-img-'.uniqid().'.'.$request->cover->getClientOriginalExtension();
-            // image name 
-            $request->cover->move('assets/images/'.$cover_name);
-            $cover_path = 'assets/images/'.$cover_name;
-        }else{
-            $cover_name = 'assets/images/default-cover.jpg';
-        }
-
         $data = [
             'title' => $request->title,
             'category_id' => $request->category,
             'description' => $request->description,
-            'cover' => $cover_path,
             'user_id' => 1,
         ];
 
-        // dd($data);
+        if($request->hasfile('cover')){
+            $filename = uniqid() .'_'. $request->file('cover')->getClientOriginalName(); // filename with unique
+            $request->file('cover')->storeas('public', $filename);
+            $data["cover"] = $filename;
+        }else{
+            $data["cover"] = 'assets/images/default-cover.jpg';
+        }
 
         $post = Post::create($data);
 
@@ -87,7 +83,7 @@ class PostController extends Controller
         // remove old image and upload new image
         if($request->hasFile('cover')){
             $request->validate([
-                'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,mp4|max:1024',
+                'cover' => 'required|mimes:jpeg,png,jpg,gif,svg,webp,mp4',
             ]);
             if(file_exists($post->cover)){
                 unlink($post->cover);
@@ -107,5 +103,18 @@ class PostController extends Controller
             'cover' => $cover_path,
         ]);
         return redirect('posts/list')->with('success', "Updated Successfully");
+    }
+
+    public function destory($id){
+        $post = Post::find($id);
+        if($post){
+            if(file_exists($post->cover)){
+                unlink($post->cover);
+            }
+            $post->delete();
+            return redirect('posts/list')->with('success', "Post deleted successfully!");
+        }else{
+            return view('errors.500Page');
+        }
     }
 }

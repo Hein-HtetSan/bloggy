@@ -24,7 +24,7 @@
                     @if ( Str::contains($feature_post->cover, '.mp4') )
                     <video src="{{ 'storage/'.$feature_post->cover }}" class="" width="100%" height="350px" controls></video>
                     @else
-                    <img src="{{ 'storage/'.$feature_post->cover }}" alt="" class="card-img-top">
+                    <img src="{{ 'storage/'.$feature_post->cover }}" alt="" width="100%" height="200px" class="card-img-top">
                     @endif
                 </a>
                 <div class="card-body">
@@ -33,7 +33,7 @@
                     <p class="card-text">
                         <?= Str::words($feature_post->description, 20, '...') ?>
                     </p>
-                    <a href="" class="btn btn-primary">Read more</a>
+                    <a href="{{ route('DetailPage', $feature_post->id) }}" class="btn btn-primary">Read more</a>
                 </div>
             </div>
             {{-- Nested row for non-featured blog posts --}}
@@ -46,63 +46,23 @@
                             @if ( Str::contains($post->cover, '.mp4') )
                             <video src="{{ 'storage/'.$post->cover }}" class="" width="100%" height="200px" controls></video>
                             @else
-                            <img src="{{ 'storage/'.$post->cover }}" alt="" class="card-img-top">
+                            <img src="{{ 'storage/'.$post->cover }}" alt="" width="100%" height="200px" class="card-img-top">
                             @endif
                         </a>
                         <div class="card-body">
                             <div class="small text-muted">{{ $post->created_at->diffForHumans() }}</div>
                             <h2 class="card-title h4">{{ $post->title }}</h2>
                             <p class="card-text"><?= Str::words($post->description, 20, '....') ?></p>
-                            <a href="" class="btn btn-primary">Read more ></a>
+                            <a href="{{ route('DetailPage', $post->id) }}" class="btn btn-primary">Read more ></a>
                         </div>
                     </div>
                     {{-- End of Blog  --}}
                 </div>
                 @endforeach
-                
-                <div class="col-lg-6">
-                    {{-- Blog post  --}}
-                    <div class="card mb-4">
-                        <a href="">
-                            <img src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="" class="card-img-top">
-                        </a>
-                        <div class="card-body">
-                            <div class="small text-muted">January 1, 2023</div>
-                            <h2 class="card-title h4">Post Title</h2>
-                            <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus, quibusdam.</p>
-                            <a href="" class="btn btn-primary">Read more ></a>
-                        </div>
-                    </div>
-                </div>
+                {{ $posts->links('pagination::bootstrap-5') }}
             </div>
 
-            {{-- Pagination  --}}
-            <nav aria-label="Pagination">
-                <hr class="my-0" />
-                <ul class="pagination justify-content-center my-4">
-                    <li class="page-item disabled">
-                        <a href="" class="page-link" tabindex="-1" aria-disabled="true">Newer</a>
-                    </li>
-                    <li class="page-item active" aria-current="page">
-                        <a href="" class="page-link">1</a>
-                    </li>
-                    <li class="page-item">
-                        <a href="" class="page-link">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a href="" class="page-link">3</a>
-                    </li>
-                    <li class="page-item disabled">
-                        <a href="" class="page-link">...</a>
-                    </li>
-                    <li class="page-item">
-                        <a href="" class="page-link">15</a>
-                    </li>
-                    <li class="page-item">
-                        <a href="" class="page-link">Older</a>
-                    </li>
-                </ul>
-            </nav>
+            
         </div>
 
         {{-- Side Widgets  --}}

@@ -30,6 +30,24 @@
                         <label for="email" class=" form-label">Email</label>
                         <input type="email" name="email" id="email" value="{{ Auth::user()->email }}" class="form-control w-50" readonly>
                     </div>
+                    <div class="mb-3">
+                        <label for="password" class=" form-label">Current Password</label>
+                        <input type="password" name="password" id="password" value="" class="form-control w-50" placeholder="Enter Current Password">
+                        <div class="d-flex align-items-start">
+                            <div class="">
+                                @if (Route::has('password.request'))
+                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        {{ __('Forgot Your Password?') }}
+                                    </a>
+                                @endif
+                            </div>
+                        </div>       
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="npassword" class=" form-label">New Password</label>
+                        <input type="password" name="npassword" id="npassword" value="" class="form-control w-50" placeholder="Enter New Password">     
+                    </div>
                     
                     <div class="mb-3">
                         <a href="{{ route('PostList') }}" class="btn btn-primary btn-sm btn-icon-split mb-3">
@@ -40,9 +58,9 @@
                         </a>
                         <button class="btn btn-primary btn-sm btn-icon-split mb-3" type="submit">
                             <span class="icon text-white-50">
-                                <i class="fas fa-pen"></i>
+                                <i class="fas fa-plus"></i>
                             </span>
-                            <span class="text d-none d-md-inline">New Password</span>
+                            <span class="text d-none d-md-inline">Update</span>
                         </button>
                     </div>
                 </form>

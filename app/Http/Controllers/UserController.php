@@ -11,7 +11,7 @@ class UserController extends Controller
         return view('backend.admin');
     }
 
-    public function updateAdminProfil(Request $request){
+    public function updateAdminProfile(Request $request){
         $validate = validator($request->all(), [
             'name' => 'required|min:3',
             'email' => 'required',

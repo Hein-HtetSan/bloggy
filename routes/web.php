@@ -31,4 +31,4 @@ Route::get('admin/logout', [LoginController::class, 'logout'])->name('AdminLogou
 
 // admin
 Route::get('admin/profile', [UserController::class, 'showAdminProfile'])->name('ShowAdminProfile');
-Route::get('admin/profile/update', [UserController::class, 'updateAdminProfile'])->name('updateAdminProfile');
+Route::post('admin/profile/update', [UserController::class, 'updateAdminProfile'])->name('updateAdminProfile');

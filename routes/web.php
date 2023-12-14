@@ -22,6 +22,10 @@ Route::post('posts/delete/{id}', [PostController::class, 'destory'])->name('Post
 // home group
 Route::get('/', [HomeController::class, 'home'])->name('HomePage');
 Route::get('/detail/{id}', [HomeController::class, 'detail'])->name('DetailPage');
+Route::get('/user/login', [HomeController::class, 'userLogin'])->name('UserLogin');
+Route::get('/user/Register', [HomeController::class, 'userRegister'])->name('UserRegister');
+Route::post('/user/store', [HomeController::class, 'store'])->name('UserStore');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Auth\LoginController;
 
 // category group
 Route::resource('backend/category', CategoryController::class);
@@ -23,3 +25,10 @@ Route::get('/detail/{id}', [HomeController::class, 'detail'])->name('DetailPage'
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('admin/login', [LoginController::class, 'showLogin'])->name('ShowAdminLogin');
+Route::post('admin/login', [LoginController::class, 'login'])->name('AdminLogin');
+Route::get('admin/logout', [LoginController::class, 'logout'])->name('AdminLogout');
+
+// admin
+Route::get('admin/profile', [UserController::class, 'showAdminProfile'])->name('ShowAdminProfile');
+Route::get('admin/profile/update', [UserController::class, 'updateAdminProfile'])->name('updateAdminProfile');
